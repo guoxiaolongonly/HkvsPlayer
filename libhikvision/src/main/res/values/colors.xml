@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3d5af9</color>
+    <color name="colorPrimaryDark">#3d5af9</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_bg">#eee</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#333</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="color_gray">#f2f2f2</color>
+    <color name="colorMainText">#333333</color>
+    <color name="colorMainBlue">#0070fa</color>
+    <color name="colorLightBlue">#73beff</color>
+    <color name="colorRecordGreen">#12A76B</color>
+    <color name="colorGray444444">#444444</color>
+    <color name="player_overlay">#80000000</color>
+    <color name="dot_color">#fe1717</color>
+
+    <color name="hintColor">#999999</color>
+    <color name="backgroundColor">#eeeeee</color>
+</resources>

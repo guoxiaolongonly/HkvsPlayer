@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/video_controller_bottom"
+        layout="@layout/video_controller_bottom" />
+
+    <ImageView
+        android:id="@+id/player_lock_screen"
+        android:layout_width="96px"
+        android:layout_height="96px"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30px"
+        android:src="@mipmap/video_unlock"
+        android:visibility="gone" />
+
+    <com.standards.libhikvision.activity.widget.player.view.LuckyVideoErrorView
+        android:id="@+id/video_controller_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/video_controller_title"
+        layout="@layout/video_controller_title" />
+
+
+    <ImageView
+        android:id="@+id/video_back"
+        android:layout_width="70px"
+        android:layout_height="90px"
+        android:layout_alignTop="@id/video_controller_title"
+        android:layout_marginLeft="30px"
+        android:padding="20px"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_back_white"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rlRecordTime"
+        android:layout_width="240px"
+        android:layout_height="72px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15px"
+        android:background="@color/player_overlay"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/vDot"
+            android:layout_width="15px"
+            android:layout_height="15px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="36px"
+            android:background="@drawable/shape_circle_dot" />
+
+        <Chronometer
+            android:id="@+id/cnTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15px"
+            android:layout_toRightOf="@+id/vDot"
+            android:format="00:00:00"
+            android:textColor="@color/white"
+            android:textSize="39px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_pre"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_pre_play"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_video_play" />
+    </RelativeLayout>
+</RelativeLayout>

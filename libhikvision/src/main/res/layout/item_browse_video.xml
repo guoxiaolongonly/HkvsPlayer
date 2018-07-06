@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="48px">
+
+    <TextView
+        android:id="@+id/tvVideoLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="32px"
+        android:layout_marginRight="32px"
+        android:text="时长"
+        android:textColor="@color/hintColor"
+        android:textSize="40px" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/tvVideoLength"
+        android:text="2018-05-24 22:00:00"
+        android:textColor="@color/colorMainText"
+        android:textSize="42px" />
+</RelativeLayout>

@@ -1,0 +1,79 @@
+<resources>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference" />
+        <attr name="metaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="ScalableTimebarView">
+        <!--标示文字高度-->
+        <attr name="tickTextSize" format="dimension" />
+        <!--大标示线高度-->
+        <attr name="bigTickHeight" format="dimension" />
+        <!--大标示线宽度-->
+        <attr name="bigTickWidth" format="dimension" />
+        <!--小标示线高度-->
+        <attr name="smallTickHeight" format="dimension" />
+        <!--小标示线宽度-->
+        <attr name="smallTickWidth" format="dimension" />
+        <!--色条高度-->
+        <attr name="colorBarHeight" format="dimension" />
+        <!--三角形指示宽度-->
+        <attr name="bottomTriangleWidth" format="dimension" />
+        <!--三角形指示器高度-->
+        <attr name="bottomTriangleHeight" format="dimension" />
+        <!--指示线宽度-->
+        <attr name="lineWidth" format="dimension" />
+        <!--标示和标示文字间距-->
+        <attr name="bigTickToTickText" format="dimension" />
+
+        <!--未播放区域颜色-->
+        <attr name="unDisplayLineColor" format="color" />
+        <!--已播放区域颜色-->
+        <attr name="displayLineColor" format="color" />
+        <!--指示三角形颜色-->
+        <attr name="indicateTriangleColor" format="color" />
+        <!--指示线颜色-->
+        <attr name="indicateLineColor" format="color" />
+        <!--标示颜色-->
+        <attr name="tickLineColor" format="color" />
+        <!--标示文字颜色-->
+        <attr name="tickTextColor" format="color" />
+        <!--超出绘制区域颜色-->
+        <attr name="outOfRangeColor" format="color" />
+
+        <!--高亮区域颜色-->
+        <attr name="recordColor" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="WheelPicker">
+        <attr name="wheel_data" format="reference" />
+        <attr name="wheel_selected_item_position" format="integer" />
+        <attr name="wheel_item_text_size" format="dimension" />
+        <attr name="wheel_item_text_color" format="color" />
+        <attr name="wheel_selected_item_text_color" format="color" />
+        <attr name="wheel_same_width" format="boolean" />
+        <attr name="wheel_maximum_width_text" format="string" />
+        <attr name="wheel_maximum_width_text_position" format="integer" />
+        <attr name="wheel_visible_item_count" format="integer" />
+        <attr name="wheel_item_space" format="dimension" />
+        <attr name="wheel_cyclic" format="boolean" />
+        <attr name="wheel_indicator" format="boolean" />
+        <attr name="wheel_indicator_color" format="color" />
+        <attr name="wheel_indicator_size" format="dimension" />
+        <attr name="wheel_curtain" format="boolean" />
+        <attr name="wheel_curtain_color" format="color" />
+        <attr name="wheel_atmospheric" format="boolean" />
+        <attr name="wheel_curved" format="boolean" />
+        <attr name="wheel_item_align" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="wheel_font_path" format="string" />
+    </declare-styleable>
+</resources>

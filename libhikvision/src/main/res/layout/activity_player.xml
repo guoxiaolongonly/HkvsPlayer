@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolBar"
+        layout="@layout/layout_toolbar" />
+
+    <com.standards.libhikvision.activity.widget.player.LivePlayer
+        android:id="@+id/player"
+        android:layout_width="match_parent"
+        android:layout_height="288dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="270px"
+            android:background="@color/white"
+            android:paddingLeft="90px"
+            android:paddingRight="90px">
+
+            <LinearLayout
+                android:id="@+id/llBackPlay"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:src="@mipmap/ic_back_play" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="回放"
+                    android:textColor="@color/colorMainText"
+                    android:textSize="39px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llRecord"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:src="@drawable/selector_record_portrait" />
+
+                <TextView
+                    android:id="@+id/tvRecord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="录像"
+                    android:textColor="@color/colorMainText"
+                    android:textSize="39px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llScreenShot"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:src="@mipmap/ic_screen_shot_portrait" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="截图"
+                    android:textColor="@color/colorMainText"
+                    android:textSize="39px" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llScreenShotHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="135px"
+                android:paddingLeft="45px"
+                android:paddingRight="45px">
+
+                <ImageView
+                    android:id="@+id/ivScreenShotImage"
+                    android:layout_width="60px"
+                    android:layout_height="60px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_screen_shot_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30px"
+                    android:layout_toRightOf="@id/ivScreenShotImage"
+                    android:text="浏览截图"
+                    android:textSize="42px" />
+
+
+                <TextView
+                    android:id="@+id/tvScreenShotCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30px"
+                    android:layout_toLeftOf="@+id/ivScrrenShotArrowRight"
+                    android:text="32"
+                    android:textSize="39px" />
+
+                <ImageView
+                    android:id="@+id/ivScrrenShotArrowRight"
+                    android:layout_width="30px"
+                    android:layout_height="60px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_arrow_right" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvScreenShot"
+                android:layout_width="match_parent"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:paddingBottom="30px"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlRecordHistory"
+            android:layout_width="match_parent"
+            android:layout_height="135px"
+            android:layout_marginTop="1px"
+            android:background="@color/white"
+            android:paddingLeft="45px"
+            android:paddingRight="45px">
+
+            <ImageView
+                android:id="@+id/ivRecordImage"
+                android:layout_width="60px"
+                android:layout_height="60px"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_record_image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30px"
+                android:layout_toRightOf="@id/ivRecordImage"
+                android:text="浏览录像"
+                android:textSize="42px" />
+
+
+            <TextView
+                android:id="@+id/tvRecordCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px"
+                android:layout_toLeftOf="@+id/ivRecordArrowRight"
+                android:text="32"
+                android:textSize="40px" />
+
+            <ImageView
+                android:id="@+id/ivRecordArrowRight"
+                android:layout_width="30px"
+                android:layout_height="60px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_arrow_right" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Libhikvision</string>
+    <string name="back_title">返回</string>
+    <string name="title">标题</string>
+    <string name="title_operation"></string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string-array name="WheelArrayDefault">
+        <item></item>
+    </string-array>
+</resources>

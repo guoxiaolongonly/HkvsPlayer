@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="45px"
+        android:layout_marginTop="30px"
+        android:background="@drawable/bg_index"
+        android:orientation="vertical"
+        android:padding="45px">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36px"
+            android:layout_marginTop="18px">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="福建省厦门市XXXXX站点"
+                android:textColor="@color/colorMainText"
+                android:textSize="42px" />
+
+            <ImageView
+                android:layout_width="21px"
+                android:layout_height="40px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_time_arrow_right" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/backgroundColor" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvIndex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30px" />
+    </LinearLayout>
+
+
+</LinearLayout>

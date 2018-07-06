@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="1000px"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="110px"
+            android:background="@mipmap/bg_dialog_top"
+            android:gravity="center"
+            android:text="日期选择"
+            android:textColor="@color/white"
+            android:textSize="44px" />
+
+        <LinearLayout
+            android:id="@+id/llContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llDate"
+                android:layout_width="match_parent"
+                android:layout_height="640px"
+                android:background="@mipmap/bg_dialog_top_white"
+                android:paddingBottom="80px"
+                android:paddingLeft="100px"
+                android:paddingRight="100px"
+                android:paddingTop="80px">
+
+                <com.standards.libhikvision.activity.widget.wheel.WheelPicker
+                    android:id="@+id/wpProvince"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:wheel_atmospheric="true"
+                    app:wheel_curved="false"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/color_bg"
+                    app:wheel_item_align="center"
+                    app:wheel_item_text_color="@color/colorMainText"
+                    app:wheel_item_text_size="54px"
+                    app:wheel_selected_item_position="3"
+                    app:wheel_selected_item_text_color="@color/colorMainBlue"
+                    app:wheel_visible_item_count="3" />
+
+
+                <com.standards.libhikvision.activity.widget.wheel.WheelPicker
+                    android:id="@+id/wpCity"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:wheel_atmospheric="true"
+                    app:wheel_curved="false"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/color_bg"
+                    app:wheel_item_align="center"
+                    app:wheel_item_text_color="@color/colorMainText"
+                    app:wheel_item_text_size="54px"
+                    app:wheel_selected_item_position="3"
+                    app:wheel_selected_item_text_color="@color/colorMainBlue"
+                    app:wheel_visible_item_count="3" />
+
+                <com.standards.libhikvision.activity.widget.wheel.WheelPicker
+                    android:id="@+id/wpArea"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:wheel_atmospheric="true"
+                    app:wheel_curved="false"
+                    app:wheel_cyclic="false"
+                    app:wheel_indicator="true"
+                    app:wheel_indicator_color="@color/color_bg"
+                    app:wheel_item_align="center"
+                    app:wheel_item_text_color="@color/colorMainText"
+                    app:wheel_item_text_size="54px"
+                    app:wheel_selected_item_position="3"
+                    app:wheel_selected_item_text_color="@color/colorMainBlue"
+                    app:wheel_visible_item_count="3" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlTime"
+                android:layout_width="match_parent"
+                android:layout_height="620px"
+                android:background="@mipmap/bg_dialog_bottom_gray"
+                android:paddingBottom="120px"
+                android:paddingLeft="100px"
+                android:paddingRight="100px">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorMainBlue"
+                        android:textSize="46px" />
+
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="-27px"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="："
+                        android:textColor="@color/colorMainBlue"
+                        android:textSize="46px" />
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="-27px"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="："
+                        android:textColor="@color/colorMainBlue"
+                        android:textSize="46px" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.standards.libhikvision.activity.widget.wheel.WheelPicker
+                        android:id="@+id/wpHour"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:wheel_atmospheric="true"
+                        app:wheel_curved="false"
+                        app:wheel_cyclic="true"
+                        app:wheel_indicator="true"
+                        app:wheel_indicator_color="@color/color_bg"
+                        app:wheel_item_align="center"
+                        app:wheel_item_text_color="@color/colorMainText"
+                        app:wheel_item_text_size="54px"
+                        app:wheel_selected_item_position="3"
+                        app:wheel_selected_item_text_color="@color/colorMainBlue"
+                        app:wheel_visible_item_count="3" />
+
+                    <com.standards.libhikvision.activity.widget.wheel.WheelPicker
+                        android:id="@+id/wpMinute"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:wheel_atmospheric="true"
+                        app:wheel_curved="false"
+                        app:wheel_cyclic="true"
+                        app:wheel_indicator="true"
+                        app:wheel_indicator_color="@color/color_bg"
+                        app:wheel_item_align="center"
+                        app:wheel_item_text_color="@color/colorMainText"
+                        app:wheel_item_text_size="54px"
+                        app:wheel_selected_item_position="3"
+                        app:wheel_selected_item_text_color="@color/colorMainBlue"
+
+                        app:wheel_visible_item_count="3" />
+
+                    <com.standards.libhikvision.activity.widget.wheel.WheelPicker
+                        android:id="@+id/wpSecond"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:wheel_atmospheric="true"
+                        app:wheel_curved="false"
+                        app:wheel_cyclic="true"
+                        app:wheel_indicator="true"
+                        app:wheel_indicator_color="@color/color_bg"
+                        app:wheel_item_align="center"
+                        app:wheel_item_text_color="@color/colorMainText"
+                        app:wheel_item_text_size="54px"
+                        app:wheel_selected_item_position="3"
+                        app:wheel_selected_item_text_color="@color/colorMainBlue"
+                        app:wheel_visible_item_count="3" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="880px"
+            android:layout_height="144px"
+            android:layout_below="@id/llContent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-88px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCancel"
+                android:layout_width="0px"
+                android:layout_height="144px"
+                android:layout_weight="1"
+                android:background="@drawable/select_dialog_btn_left"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@drawable/select_manager_item_text"
+                android:textSize="50px" />
+
+            <TextView
+                android:id="@+id/tvSure"
+                android:layout_width="0px"
+                android:layout_height="144px"
+                android:layout_weight="1"
+                android:background="@drawable/select_dialog_btn_right"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@drawable/select_dialog_submit_text"
+                android:textSize="50px" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

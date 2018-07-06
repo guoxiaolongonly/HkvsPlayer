@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--标题栏颜色-->
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <!--状态栏颜色-->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="9px">
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="330px"
+        android:layout_height="210px"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="21px"
+        android:text="2018-05-24 22:00:00"
+        android:textColor="@color/black"
+        android:textSize="30px" />
+</LinearLayout>

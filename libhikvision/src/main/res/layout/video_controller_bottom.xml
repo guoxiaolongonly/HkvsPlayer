@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llStreamType"
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="723px"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvHighQuality"
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:background="@color/black_overlay"
+            android:gravity="center"
+            android:text="高清"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+
+        <TextView
+            android:id="@+id/tvFluency"
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:background="@color/black_overlay"
+            android:gravity="center"
+            android:text="流畅"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_marginTop="-6px"
+            android:src="@mipmap/ic_indicate_play_quality" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="148px"
+        android:background="@color/player_overlay"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/flPlayerState"
+            android:layout_width="132px"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivPlayerState"
+                android:layout_width="63px"
+                android:layout_height="63px"
+                android:layout_gravity="center"
+                android:padding="6px"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_video_pause" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="27px"
+            android:layout_marginTop="27px"
+            android:background="@color/colorGray444444" />
+
+        <LinearLayout
+            android:id="@+id/llTimeBarView"
+            android:layout_width="660px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/player_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="36px" />
+
+            <SeekBar
+                android:id="@+id/player_seek_bar"
+                style="@style/Widget.SeekBar.Media"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/player_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="36px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llVoiceView"
+            android:layout_width="570px"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="27px"
+            android:layout_marginTop="27px"
+            android:background="@color/colorGray444444" />
+
+        <TextView
+            android:id="@+id/tvSourceStream"
+            android:layout_width="192px"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="高清"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="27px"
+            android:layout_marginTop="27px"
+            android:background="@color/colorGray444444" />
+
+        <LinearLayout
+            android:id="@+id/llLandView"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivRecord"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_marginLeft="60px"
+                android:src="@drawable/selector_record" />
+
+            <ImageView
+                android:id="@+id/ivScreenShot"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_marginLeft="60px"
+                android:src="@mipmap/ic_screen_shot_land" />
+
+            <FrameLayout
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/ivPreImage"
+                    android:layout_width="165px"
+                    android:layout_height="112px"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_index" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/video_full_screen"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_marginLeft="45px"
+            android:layout_marginRight="45px"
+            android:padding="6px"
+            android:scaleType="fitXY"
+            android:src="@drawable/selector_screen" />
+
+    </LinearLayout>
+</LinearLayout>

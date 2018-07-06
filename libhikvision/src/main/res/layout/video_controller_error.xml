@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A6000000"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/video_error_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="168px"
+        android:layout_marginRight="168px"
+        android:gravity="center"
+        android:text="视频加载失败"
+        android:textColor="#ffffff"
+        android:textSize="45px" />
+
+    <Button
+        android:id="@+id/video_error_retry"
+        android:layout_width="480px"
+        android:layout_height="105px"
+        android:layout_marginTop="78px"
+        android:background="@drawable/correct_white_stroke"
+        android:text="点此重试"
+        android:textColor="#ffffff"
+        android:textSize="42px" />
+
+</LinearLayout>

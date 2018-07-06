@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolBar"
+        layout="@layout/layout_toolbar" />
+
+    <com.standards.libhikvision.activity.widget.player.BackPlayer
+        android:id="@+id/player"
+        android:layout_width="match_parent"
+        android:layout_height="208dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="270px"
+            android:background="@color/white"
+            android:paddingLeft="90px"
+            android:paddingRight="90px">
+
+            <LinearLayout
+                android:id="@+id/llRecord"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:src="@drawable/selector_record_portrait" />
+
+                <TextView
+                    android:id="@+id/tvRecord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="录像"
+                    android:textColor="@color/colorMainText"
+                    android:textSize="40px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llScreenShot"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:src="@mipmap/ic_screen_shot_portrait" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="截图"
+                    android:textColor="@color/colorMainText"
+                    android:textSize="40px" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:layout_marginTop="30px"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/flTimePre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="30px">
+
+            <ImageView
+                android:layout_width="27px"
+                android:layout_height="45px"
+                android:src="@mipmap/ic_time_arrow_left" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="93px"
+            android:text="2018-05-22"
+            android:textColor="@color/colorMainText"
+            android:textSize="42px" />
+
+        <FrameLayout
+            android:id="@+id/flTimeNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="63px"
+            android:padding="30px">
+
+            <ImageView
+                android:layout_width="27px"
+                android:layout_height="45px"
+                android:src="@mipmap/ic_time_arrow_right" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        android:paddingBottom="48px"
+        android:paddingTop="48px">
+
+        <com.standards.libhikvision.activity.widget.slice.ScalableTimebarView
+            android:id="@+id/sctvTimeLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+</LinearLayout>
