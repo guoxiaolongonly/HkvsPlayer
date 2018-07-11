@@ -1,17 +1,13 @@
 package com.standards.libhikvision.browse;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.BaseActivity;
+import com.standards.libhikvision.activity.widget.ImagePreViewDialog;
 import com.standards.libhikvision.adapter.BrowsePhotoAdapter;
 import com.standards.libhikvision.presenter.FileVisitorPresenter;
 import com.standards.libhikvision.view.IFileVisitorView;
@@ -64,13 +60,10 @@ public class BrowsePhotoActivity extends BaseActivity implements IFileVisitorVie
     @Override
     protected void setListener() {
         ivBack.setOnClickListener(v -> finish());
+
         browsePhotoAdapter.setOnItemClickListener(v -> {
-            File file = (File) v.getTag();
-            Uri uri = FileProvider.getUriForFile(this, "com.standards.libhikvision.fileprovider", file);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri, "image/*");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(intent);
+            ImagePreViewDialog imagePreViewDialog = new ImagePreViewDialog(this,  browsePhotoAdapter.getUrls(), (Integer) v.getTag());
+            imagePreViewDialog.show();
         });
     }
 

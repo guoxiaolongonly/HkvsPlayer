@@ -1,7 +1,6 @@
 package com.standards.libhikvision;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.hik.mcrsdk.MCRSDK;
 import com.hik.mcrsdk.rtsp.RtspClient;

@@ -160,6 +160,15 @@ public class PlayBackMedia extends BaseMedia {
 
     }
 
+    @Override
+    public boolean setCurrentTime(long time) {
+        Calendar currentTime = Calendar.getInstance();
+        currentTime.setTimeInMillis(time);
+        stop();
+        queryRecordSegmentThenPlay(playStartTime, playEndTime, currentTime);
+        return true;
+    }
+
     public void playTime(long time) {
         Calendar currentTime = Calendar.getInstance();
         currentTime.setTimeInMillis(time);
@@ -225,14 +234,6 @@ public class PlayBackMedia extends BaseMedia {
     }
 
 
-    /**
-     * 回放获取当前播放时间
-     */
-    @Override
-    public long getCurrentPlayTime() {
-        long playerTime = VMSNetSDK.getInstance().getOSDTimeOpt(mWindow);
-        return -1 == playerTime ? preTime.getTimeInMillis() : playerTime;
-    }
 
     /**
      * 回放更新容器
@@ -253,7 +254,6 @@ public class PlayBackMedia extends BaseMedia {
      */
     @Override
     public void setPlayBackSpeed(@PlaybackSpeed.Speed int speed) {
-
         VMSNetSDK.getInstance().setPlaybackSpeed(mWindow, speed);
     }
 
@@ -274,6 +274,22 @@ public class PlayBackMedia extends BaseMedia {
 
     public Calendar getPlayStartTime() {
         return playStartTime;
+    }
+
+    @Override
+    public long getCurrentPlayTime() {
+        long playerTime = VMSNetSDK.getInstance().getOSDTimeOpt(mWindow);
+        return -1 == playerTime ? preTime.getTimeInMillis() : playerTime;
+    }
+
+    @Override
+    public long getStartTime() {
+        return playStartTime.getTimeInMillis();
+    }
+
+    @Override
+    public long getTotalTime() {
+        return playEndTime.getTimeInMillis();
     }
 
     public void setPlayStartTime(Calendar playStartTime) {

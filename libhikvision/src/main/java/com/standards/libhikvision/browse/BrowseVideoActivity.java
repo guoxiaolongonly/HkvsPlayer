@@ -1,10 +1,7 @@
 package com.standards.libhikvision.browse;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -12,10 +9,9 @@ import android.widget.TextView;
 
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.BaseActivity;
-import com.standards.libhikvision.adapter.BrowsePhotoAdapter;
 import com.standards.libhikvision.adapter.BrowseVideoAdapter;
 import com.standards.libhikvision.presenter.FileVisitorPresenter;
-import com.standards.libhikvision.ui.H246MediaDecoderActivity;
+import com.standards.libhikvision.ui.LocalVideoActivity;
 import com.standards.libhikvision.view.IFileVisitorView;
 
 import java.io.File;
@@ -71,15 +67,15 @@ public class BrowseVideoActivity extends BaseActivity implements IFileVisitorVie
 //            Intent intent = new Intent(Intent.ACTION_VIEW);
 //            intent.setDataAndType(uri, "video/mp4");
 //            startActivity(intent);
-            File file = (File) v.getTag();
-            Uri uri = FileProvider.getUriForFile(this, "com.standards.libhikvision.fileprovider", file);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri, "video/mp4");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(intent);
-//            Intent intent = new Intent(this, H246MediaDecoderActivity.class);
-//            intent.putExtra("filePath", (File) v.getTag());
+//            File file = (File) v.getTag();
+//            Uri uri = FileProvider.getUriForFile(this, "com.standards.libhikvision.fileprovider", file);
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setDataAndType(uri, "video/mp4");
+//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //            startActivity(intent);
+            Intent intent = new Intent(this, LocalVideoActivity.class);
+            intent.putExtra(LocalVideoActivity.KEY_FILE, (File) v.getTag());
+            startActivity(intent);
         });
     }
 

@@ -29,6 +29,9 @@ public class HintUtil {
             case 6:
                 hingResult = "录像中不能抓拍";
                 break;
+            default:
+                hingResult = "当前无法抓拍！";
+                break;
         }
         return hingResult;
     }
@@ -51,6 +54,9 @@ public class HintUtil {
             case 6:
                 hingResult = "录像中不能抓拍";
                 break;
+            default:
+                hingResult = "当前无法抓拍！";
+                break;
         }
         return hingResult;
     }
@@ -63,13 +69,16 @@ public class HintUtil {
                 hingResult = "SD卡不可用";
                 break;
             case SDKConstant.LiveSDKConstant.SD_CARD_SIZE_NOT_ENOUGH:
-                hingResult ="存储空间不足";
+                hingResult = "存储空间不足";
                 break;
             case SDKConstant.LiveSDKConstant.RECORD_FAILED:
-                hingResult ="录像启动失败";
+                hingResult = "录像启动失败";
                 break;
             case SDKConstant.LiveSDKConstant.RECORD_SUCCESS:
-                hingResult ="启动录像成功";
+                hingResult = "启动录像成功";
+                break;
+            default:
+                hingResult = "当前无法录像！";
                 break;
         }
         return hingResult;
@@ -82,13 +91,16 @@ public class HintUtil {
                 hingResult = "SD卡不可用";
                 break;
             case SDKConstant.PlayBackSDKConstant.SD_CARD_SIZE_NOT_ENOUGH:
-                hingResult ="存储空间不足";
+                hingResult = "存储空间不足";
                 break;
             case SDKConstant.PlayBackSDKConstant.RECORD_FAILED:
-                hingResult ="录像启动失败";
+                hingResult = "录像启动失败";
                 break;
             case SDKConstant.PlayBackSDKConstant.RECORD_SUCCESS:
-                hingResult ="启动录像成功";
+                hingResult = "启动录像成功";
+                break;
+            default:
+                hingResult = "当前无法录像！";
                 break;
         }
         return hingResult;

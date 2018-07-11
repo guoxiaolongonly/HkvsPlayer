@@ -47,29 +47,24 @@ public class LiveMedia extends BaseMedia {
             return;
         }
         mOnPlayCallBack.onStart();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                VMSNetSDK.getInstance().startLiveOpt(mWindow, mSubResourceNodeBean.getSysCode(), mSurfaceView,
-                        streamType, new OnVMSNetSDKBusiness() {
-                            @Override
-                            public void onFailure() {
-                                if (mOnPlayCallBack != null) {
-                                    mOnPlayCallBack.onFailure();
-                                }
-                            }
+        new Thread(() -> VMSNetSDK.getInstance().startLiveOpt(mWindow, mSubResourceNodeBean.getSysCode(), mSurfaceView,
+                streamType, new OnVMSNetSDKBusiness() {
+                    @Override
+                    public void onFailure() {
+                        if (mOnPlayCallBack != null) {
+                            mOnPlayCallBack.onFailure();
+                        }
+                    }
 
-                            @Override
-                            public void onSuccess(Object obj) {
-                                setPlayStatus(PLAY_STATUS_PLAYING);
-                                if (mOnPlayCallBack != null) {
-                                    mOnPlayCallBack.onSuccess(obj);
-                                }
-                            }
+                    @Override
+                    public void onSuccess(Object obj) {
+                        setPlayStatus(PLAY_STATUS_PLAYING);
+                        if (mOnPlayCallBack != null) {
+                            mOnPlayCallBack.onSuccess(obj);
+                        }
+                    }
 
-                        });
-            }
-        }).start();
+                })).start();
 
     }
 

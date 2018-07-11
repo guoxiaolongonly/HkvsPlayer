@@ -71,10 +71,13 @@
 
         <LinearLayout
             android:id="@+id/llTimeBarView"
-            android:layout_width="660px"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:orientation="horizontal"
+            android:paddingLeft="40px"
+            android:paddingRight="40px"
             android:visibility="gone">
 
             <TextView
@@ -133,11 +136,11 @@
 
         <LinearLayout
             android:id="@+id/llLandView"
-            android:layout_width="0px"
+            android:layout_width="600px"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:paddingRight="40px"
             android:visibility="gone">
 
             <ImageView

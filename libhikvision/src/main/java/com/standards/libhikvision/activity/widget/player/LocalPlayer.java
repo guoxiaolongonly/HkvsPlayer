@@ -16,18 +16,14 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.hik.mcrsdk.rtsp.RtspClient;
-import com.hikvision.sdk.net.bean.SubResourceNodeBean;
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack;
 import com.standards.libhikvision.activity.widget.player.listener.OnVideoControlListener;
-import com.standards.libhikvision.activity.widget.player.video.BaseMedia;
-import com.standards.libhikvision.activity.widget.player.video.PlayBackMedia;
+import com.standards.libhikvision.activity.widget.player.video.LocalMedia;
+import com.standards.libhikvision.activity.widget.player.view.LuckyBehaviorView;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoControllerView;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoProgressOverlay;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoSystemOverlay;
-import com.standards.libhikvision.activity.widget.player.view.LuckyBehaviorView;
-import com.standards.libhikvision.util.DisplayUtils;
 import com.standards.libhikvision.util.NetworkUtils;
 import com.standards.libhikvision.util.StringUtils;
 
@@ -39,7 +35,7 @@ import java.util.Calendar;
  *
  * @author CRAWLER
  */
-public class BackPlayer extends LuckyBehaviorView {
+public class LocalPlayer extends LuckyBehaviorView {
 
     private static final String TAG = "hkvsPlayer";
     private SurfaceView surfaceView;
@@ -48,7 +44,7 @@ public class BackPlayer extends LuckyBehaviorView {
     private LuckyVideoSystemOverlay systemView;
     private LuckyVideoControllerView mediaController;
 
-    private PlayBackMedia mMediaPlayer;
+    private LocalMedia mMediaPlayer;
 
     private int initWidth;
     private int initHeight;
@@ -57,17 +53,17 @@ public class BackPlayer extends LuckyBehaviorView {
     private SurfaceHolder.Callback mSurfaceCallBack;
     private OnPlayCallBack mOnPlayCallBack;
 
-    public BackPlayer(Context context) {
+    public LocalPlayer(Context context) {
         super(context);
         init();
     }
 
-    public BackPlayer(Context context, AttributeSet attrs) {
+    public LocalPlayer(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public BackPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LocalPlayer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -84,10 +80,6 @@ public class BackPlayer extends LuckyBehaviorView {
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-                initWidth = getWidth();
-                initHeight = DisplayUtils.getScreenHeightPixels(getContext()) / 3;
-                getLayoutParams().height = initHeight;
-                requestLayout();
                 if (mSurfaceCallBack != null) {
                     mSurfaceCallBack.surfaceCreated(holder);
                 }
@@ -103,7 +95,6 @@ public class BackPlayer extends LuckyBehaviorView {
 
             }
         });
-
         // 注册网络状态变化广播
         registerNetChangedReceiver();
     }
@@ -112,12 +103,11 @@ public class BackPlayer extends LuckyBehaviorView {
         mOnPlayCallBack = onPlayCallBack;
     }
 
-    public void initPlayer(SubResourceNodeBean subResourceNodeBean, String title, int window) {
+    public void initPlayer(String title, String filePath) {
         Calendar startTime = Calendar.getInstance();
         int year = startTime.get(Calendar.YEAR);
         int month = startTime.get(Calendar.MONTH);
         int day = startTime.get(Calendar.DAY_OF_MONTH);
-        Calendar endTime = Calendar.getInstance();
         startTime.set(year, month, day, 0, 0, 0);
         OnPlayCallBack onPlayCallBack = new OnPlayCallBack() {
             @Override
@@ -130,10 +120,9 @@ public class BackPlayer extends LuckyBehaviorView {
             @Override
             public void onStatusCallback(int i) {
                 //录像片段回放结束
-                if (i == RtspClient.RTSPCLIENT_MSG_PLAYBACK_FINISH) {
-                    mediaController.release();
-                    mediaController.stop();
-                }
+//                if (i == RtspClient.RTSPCLIENT_MSG_PLAYBACK_FINISH) {
+//                    mediaController.stop();
+//                }
                 if (mOnPlayCallBack != null) {
                     mOnPlayCallBack.onStatusCallback(i);
                 }
@@ -155,11 +144,10 @@ public class BackPlayer extends LuckyBehaviorView {
                 }
             }
         };
-        mMediaPlayer = new PlayBackMedia(surfaceView, subResourceNodeBean, title, window, startTime, endTime);
+        mMediaPlayer = new LocalMedia(title, filePath, surfaceView);
         mSurfaceCallBack = new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-
                 mMediaPlayer.resume();
                 mMediaPlayer.setVideoWindowOpt(holder);
             }
@@ -178,43 +166,29 @@ public class BackPlayer extends LuckyBehaviorView {
         mediaController.setPlayer(mMediaPlayer, onPlayCallBack);
     }
 
-    public void playTime(long currentTime) {
-        mMediaPlayer.playTime(currentTime);
-    }
-
-    public void playTime(Calendar mStartTime, Calendar mEndTime, Calendar currentTime) {
-        mMediaPlayer.queryRecordSegmentThenPlay(mStartTime, mEndTime, currentTime);
-    }
 
     public void startPlay() {
         mediaController.play();
     }
 
 
-    public void onStop() {
-        if (mMediaPlayer.getPlayStatus() == BaseMedia.PLAY_STATUS_PLAYING) {
-            // 如果已经开始且在播放，则暂停同时记录状态
-            mMediaPlayer.pause();
-        }
-    }
+//    public void onStop() {
+//        if (mMediaPlayer.getPlayStatus() == BaseMedia.PLAY_STATUS_PLAYING) {
+//            // 如果已经开始且在播放，则暂停同时记录状态
+//            mMediaPlayer.pause();
+//        }
+//    }
 
-    public void onStart() {
-        if (mMediaPlayer.getPlayStatus() == BaseMedia.PLAY_STATUS_STOP) {
-            // 如果切换到后台暂停，后又切回来，则继续播放
-            startPlay();
-        }
-        if (mMediaPlayer.getPlayStatus() == BaseMedia.PLAY_STATUS_PAUSE) {
-            mMediaPlayer.resume();
-        }
-    }
+//    public void onStart() {
+//        if (mMediaPlayer.getPlayStatus() == BaseMedia.PLAY_STATUS_STOP) {
+//            // 如果切换到后台暂停，后又切回来，则继续播放
+//            startPlay();
+//        }
+//        if (mMediaPlayer.getPlayStatus() == BaseMedia.PLAY_STATUS_PAUSE) {
+//            mMediaPlayer.resume();
+//        }
+//    }
 
-    public int startRecord() {
-        return mediaController.startRecord(StringUtils.formatDate(System.currentTimeMillis()) + ".mp4");
-    }
-
-    public void stopRecord() {
-        mediaController.stopRecord();
-    }
 
     public int screenShot() {
         return mediaController.screenShot(StringUtils.formatDate(System.currentTimeMillis()) + ".jpg");
@@ -266,17 +240,6 @@ public class BackPlayer extends LuckyBehaviorView {
 //        progressView.show(delProgress,  mMediaPlayer.getPlayStartTime(), mMediaPlayer.getPlayEndTime());
     }
 
-    public long getAllTime() {
-        return mMediaPlayer.getPlayEndTime().getTimeInMillis() - mMediaPlayer.getPlayStartTime().getTimeInMillis();
-    }
-
-    public long getCurrentTime() {
-        return mMediaPlayer.getCurrentPlayTime() - mMediaPlayer.getPlayStartTime().getTimeInMillis();
-    }
-
-    public long getCurrentPlayerTime() {
-        return mMediaPlayer.getCurrentPlayTime();
-    }
 
     @Override
     protected void updateVolumeUI(int max, int progress) {
@@ -395,11 +358,6 @@ public class BackPlayer extends LuckyBehaviorView {
                 mediaController.checkShowError(true);
             }
         }
-    }
-
-
-    public void setRecordPath(String recordPath) {
-        mediaController.setRecordPath(recordPath);
     }
 
     public void setScreenShotPath(String sceenShotPath) {

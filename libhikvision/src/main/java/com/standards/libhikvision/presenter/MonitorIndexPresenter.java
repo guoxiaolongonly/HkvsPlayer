@@ -51,8 +51,7 @@ public class MonitorIndexPresenter {
 
             @Override
             public void onSuccess(Object o) {
-                if(o instanceof  LoginData)
-                {
+                if (o instanceof LoginData) {
                     monitorIndexView.loginSuccess((LoginData) o);
                 }
             }
@@ -60,7 +59,7 @@ public class MonitorIndexPresenter {
     }
 
     public void getSubResourceList(int parentNodeType, String pId) {
-        VMSNetSDK.getInstance().getSubResourceList(1, 999, SDKConstant.SysType.TYPE_VIDEO, parentNodeType, "1", new OnVMSNetSDKBusiness() {
+        VMSNetSDK.getInstance().getSubResourceList(1, 999, SDKConstant.SysType.TYPE_VIDEO, parentNodeType, pId, new OnVMSNetSDKBusiness() {
             @Override
             public void onFailure() {
                 monitorIndexView.showHint("获取设备信息失败！");

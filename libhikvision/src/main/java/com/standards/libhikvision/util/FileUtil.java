@@ -3,12 +3,10 @@ package com.standards.libhikvision.util;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,12 +20,11 @@ public class FileUtil {
 
     public static File getVideoDirPath(String directoryName) {
         File var1 = null;
-
         try {
             File var0 = Environment.getExternalStorageDirectory();
             var1 = new File(var0.getAbsolutePath() + File.separator + "stdCache" + File.separator + directoryName);
             if (!var1.exists()) {
-                var1.mkdir();
+                var1.mkdirs();
                 var1.createNewFile();
             }
         } catch (IOException var3) {

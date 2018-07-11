@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.hikvision.sdk.consts.SDKConstant;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
-import com.standards.libhikvision.util.Constant;
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.BaseActivity;
 import com.standards.libhikvision.activity.widget.dialog.DatePickerDialog;
@@ -18,7 +17,7 @@ import com.standards.libhikvision.activity.widget.player.BackPlayer;
 import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack;
 import com.standards.libhikvision.activity.widget.player.listener.OnVideoControlListener;
 import com.standards.libhikvision.activity.widget.slice.ScalableTimebarView;
-import com.standards.libhikvision.presenter.FileVisitorPresenter;
+import com.standards.libhikvision.util.Constant;
 import com.standards.libhikvision.util.DisplayUtils;
 import com.standards.libhikvision.util.FileUtil;
 import com.standards.libhikvision.util.HintUtil;
@@ -56,7 +55,6 @@ public class BackPlayActivity extends BaseActivity {
     private Calendar mEndTime;
     private Timer mUpdateTimer;
     private DatePickerDialog datePickerDialog;
-    private FileVisitorPresenter fileVisitorPresenter;
     /**
      * 定时器执行的任务
      */
@@ -90,7 +88,8 @@ public class BackPlayActivity extends BaseActivity {
 
         File recordPath = FileUtil.getVideoDirPath(subResourceNodeBean.getName() + "/backVideo");
         player.setRecordPath(recordPath.getPath());
-        File screenShotPath = FileUtil.getVideoDirPath(subResourceNodeBean.getName() + "/backScreenShot");
+        File screenShotPath = FileUtil.getVideoDirPath(
+                subResourceNodeBean.getName() + "/backScreenShot");
         player.setScreenShotPath(screenShotPath.getPath());
     }
 
@@ -195,7 +194,8 @@ public class BackPlayActivity extends BaseActivity {
         mEndTime.setTimeInMillis(mStartTime.getTimeInMillis());
         mEndTime.set(Calendar.DAY_OF_MONTH, mEndTime.get(Calendar.DAY_OF_MONTH) + 1);
         tvTime.setText(StringUtils.formatDateYYMMDD(mStartTime.getTimeInMillis()));
-        sctvTimeLine.initTimebarLengthAndPosition(mStartTime.getTimeInMillis(), mEndTime.getTimeInMillis(), mStartTime.getTimeInMillis());
+        sctvTimeLine.initTimebarLengthAndPosition(mStartTime.getTimeInMillis(), mEndTime.getTimeInMillis(),
+                mStartTime.getTimeInMillis());
         player.playTime(mStartTime, mEndTime, mStartTime);
     }
 
@@ -216,7 +216,8 @@ public class BackPlayActivity extends BaseActivity {
             mEndTime.set(Calendar.DAY_OF_MONTH, mEndTime.get(Calendar.DAY_OF_MONTH) + 1);
         }
         tvTime.setText(StringUtils.formatDateYYMMDD(mStartTime.getTimeInMillis()));
-        sctvTimeLine.initTimebarLengthAndPosition(mStartTime.getTimeInMillis(), mEndTime.getTimeInMillis(), mStartTime.getTimeInMillis());
+        sctvTimeLine.initTimebarLengthAndPosition(mStartTime.getTimeInMillis(), mEndTime.getTimeInMillis(),
+                mStartTime.getTimeInMillis());
         player.playTime(mStartTime, mEndTime, mStartTime);
     }
 
@@ -228,7 +229,8 @@ public class BackPlayActivity extends BaseActivity {
         mEndTime = Calendar.getInstance();
         mStartTime.set(year, month, day, 0, 0, 0);
         tvTime.setText(StringUtils.formatDateYYMMDD(System.currentTimeMillis()));
-        sctvTimeLine.initTimebarLengthAndPosition(mStartTime.getTimeInMillis(), mEndTime.getTimeInMillis(), mStartTime.getTimeInMillis());
+        sctvTimeLine.initTimebarLengthAndPosition(mStartTime.getTimeInMillis(), mEndTime.getTimeInMillis(),
+                mStartTime.getTimeInMillis());
         sctvTimeLine.setOnBarMoveListener(new ScalableTimebarView.OnBarMoveListener() {
             @Override
             public void onBarMove(long screenLeftTime, long screenRightTime, long currentTime) {
@@ -285,11 +287,11 @@ public class BackPlayActivity extends BaseActivity {
         super.onStart();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        player.onStop();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        player.onStop();
+//    }
 
     @Override
     protected void onDestroy() {

@@ -23,14 +23,15 @@ import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack;
 import com.standards.libhikvision.activity.widget.player.listener.OnVideoControlListener;
 import com.standards.libhikvision.activity.widget.player.video.BaseMedia;
-import com.standards.libhikvision.activity.widget.player.video.PlayBackMedia;
 import com.standards.libhikvision.util.DisplayUtils;
 import com.standards.libhikvision.util.NetworkUtils;
 import com.standards.libhikvision.util.StringUtils;
 
 import java.io.File;
 
+import static com.standards.libhikvision.activity.widget.player.video.BaseMedia.MODE_LOCAL_PLAY;
 import static com.standards.libhikvision.activity.widget.player.video.BaseMedia.MODE_PLAY;
+import static com.standards.libhikvision.activity.widget.player.video.BaseMedia.MODE_PLAY_BACK;
 import static com.standards.libhikvision.activity.widget.player.video.BaseMedia.PLAY_STATUS_PAUSE;
 import static com.standards.libhikvision.activity.widget.player.video.BaseMedia.PLAY_STATUS_PLAYING;
 
@@ -115,6 +116,7 @@ public class LuckyVideoControllerView extends FrameLayout {
     private String recordPath;
     private String screenShotPath;
     private File preImage;
+    private LinearLayout llTimeBarView;
 
     public void setOnVideoControlListener(OnVideoControlListener onVideoControlListener) {
         this.onVideoControlListener = onVideoControlListener;
@@ -160,6 +162,7 @@ public class LuckyVideoControllerView extends FrameLayout {
         mVideoProgress = mControllerBottom.findViewById(R.id.player_progress);
         mVideoDuration = mControllerBottom.findViewById(R.id.player_duration);
         ivPreImage = mControllerBottom.findViewById(R.id.ivPreImage);
+        llTimeBarView = findViewById(R.id.llTimeBarView);
         ivPreImage.setVisibility(GONE);
         ivScreenShot = mControllerBottom.findViewById(R.id.ivScreenShot);
         ivRecord = mControllerBottom.findViewById(R.id.ivRecord);
@@ -290,14 +293,27 @@ public class LuckyVideoControllerView extends FrameLayout {
                 ((Activity) getContext()).runOnUiThread(() -> onPlayCallBack.onStart());
             }
         });
+        //视图控制
         if (mMediaPlayer.getPlayMode() == MODE_PLAY) {
-            mPlayerSeekBar.setVisibility(INVISIBLE);
+            llTimeBarView.setVisibility(INVISIBLE);
+            tvSourceStream.setOnClickListener(v -> {
+                llStreamType.setVisibility(View.GONE - llStreamType.getVisibility());
+            });
+        } else if (mMediaPlayer.getPlayMode() == MODE_LOCAL_PLAY) {
+            llTimeBarView.setVisibility(VISIBLE);
+            findViewById(R.id.llLandView).setVisibility(VISIBLE);
+            ivRecord.setVisibility(GONE);
+            ivScreenShot.setVisibility(VISIBLE);
+            mVideoFullScreen.setVisibility(GONE);
+            findViewById(R.id.llVoiceView).setVisibility(GONE);
+            tvSourceStream.setVisibility(GONE);
+            llStreamType.setVisibility(GONE);
             tvSourceStream.setOnClickListener(v -> {
                 llStreamType.setVisibility(View.GONE - llStreamType.getVisibility());
             });
         }
 
-        if (mMediaPlayer.getPlayMode() == BaseMedia.MODE_PLAY_BACK) {
+        if (mMediaPlayer.getPlayMode() == BaseMedia.MODE_PLAY_BACK || mediaPlayer.getPlayMode() == BaseMedia.MODE_LOCAL_PLAY) {
             mPlayerSeekBar.setOnSeekBarChangeListener(mSeekListener);
         }
         mVideoTitle.setText(mediaPlayer.getTitle());
@@ -307,6 +323,9 @@ public class LuckyVideoControllerView extends FrameLayout {
      * 控制隐藏显示
      */
     public void toggleDisplay() {
+        if (rl_pre.getVisibility() == VISIBLE) {
+            return;
+        }
         if (mShowing) {
             hide();
         } else {
@@ -409,17 +428,20 @@ public class LuckyVideoControllerView extends FrameLayout {
         if (mMediaPlayer == null || mDragging) {
             return 0;
         }
-        PlayBackMedia backPlayer = (PlayBackMedia) mMediaPlayer;
-        long current = backPlayer.getCurrentPlayTime();
-        long start = backPlayer.getPlayStartTime().getTimeInMillis();
-        long end = backPlayer.getPlayEndTime().getTimeInMillis();
+
+        long current = mMediaPlayer.getCurrentPlayTime();
+        long start = mMediaPlayer.getStartTime();
+        long end = mMediaPlayer.getTotalTime();
+        if (current == end) {
+            mMediaPlayer.stop();
+        }
         if (mPlayerSeekBar != null) {
             long pos = (current - start) * 1000 / (end - start);
             mPlayerSeekBar.setProgress((int) pos);
         }
+        mVideoProgress.setText(getRealTime(current));
+        mVideoDuration.setText(getRealTime(end));
 
-        mVideoProgress.setText(StringUtils.millToTime(current));
-        mVideoDuration.setText(StringUtils.millToTime(end));
 
         return current;
     }
@@ -444,9 +466,11 @@ public class LuckyVideoControllerView extends FrameLayout {
                 showError(LuckyVideoErrorView.STATUS_VIDEO_DETAIL_ERROR);
             } else if (isMobileNet && !isWifiNet && !mAllowUnWifiPlay) {
                 // 如果是手机流量，且未同意过播放，且非本地视频，则提示错误
-                mErrorView.showError(LuckyVideoErrorView.STATUS_UN_WIFI_ERROR);
-                mMediaPlayer.setLockPlay(true);
-                mMediaPlayer.stop();
+                if (mMediaPlayer.getPlayMode() != BaseMedia.MODE_LOCAL_PLAY) {
+                    mErrorView.showError(LuckyVideoErrorView.STATUS_UN_WIFI_ERROR);
+                    mMediaPlayer.setLockPlay(true);
+                    mMediaPlayer.stop();
+                }
             } else if (isWifiNet && isNetChanged && mErrorView.getCurStatus() == LuckyVideoErrorView.STATUS_UN_WIFI_ERROR) {
                 // 如果是wifi流量，且之前是非wifi错误，则恢复播放
                 reload();
@@ -529,18 +553,18 @@ public class LuckyVideoControllerView extends FrameLayout {
             if (!fromuser) {
                 return;
             }
-            long startTime = ((PlayBackMedia) mMediaPlayer).getPlayStartTime().getTimeInMillis();
-            long endTime = ((PlayBackMedia) mMediaPlayer).getPlayEndTime().getTimeInMillis();
+            long startTime = mMediaPlayer.getStartTime();
+            long endTime = mMediaPlayer.getTotalTime();
             long timeRange = endTime - startTime;
             mDraggingProgress = (timeRange * progress) / 1000L + startTime;
             if (mVideoProgress != null) {
-                mVideoProgress.setText(StringUtils.millToTime(mDraggingProgress + startTime));
+                mVideoProgress.setText(getRealTime(mDraggingProgress + startTime));
             }
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar bar) {
-            ((PlayBackMedia) mMediaPlayer).playTime(mDraggingProgress);
+            mMediaPlayer.setCurrentTime(mDraggingProgress);
             mDragging = false;
             mDraggingProgress = 0;
             hide();
@@ -729,7 +753,7 @@ public class LuckyVideoControllerView extends FrameLayout {
     }
 
     public int screenShot(String fileName) {
-        int captureStatus = screenShot(screenShotPath,fileName);
+        int captureStatus = screenShot(screenShotPath, fileName);
         if (captureStatus == SDKConstant.LiveSDKConstant.CAPTURE_SUCCESS || captureStatus == SDKConstant.PlayBackSDKConstant.CAPTURE_SUCCESS) {
             preImage = new File(screenShotPath, fileName);
             if (preImage != null && preImage.exists()) {
@@ -741,13 +765,22 @@ public class LuckyVideoControllerView extends FrameLayout {
         return captureStatus;
     }
 
-    public int screenShot(String filePath,String fileName)
-    {
+    public String getRealTime(long mill) {
+        if (MODE_PLAY_BACK == mMediaPlayer.getPlayMode()) {
+            return StringUtils.millToTime(mill);
+        } else {
+            return StringUtils.stringForTime((int) mill);
+        }
+    }
+
+
+    public int screenShot(String filePath, String fileName) {
         if (mMediaPlayer.isRecording()) {
             return 6;
         }
-       return mMediaPlayer.capture(filePath, fileName);
+        return mMediaPlayer.capture(filePath, fileName);
     }
+
     public void setRecordPath(String recordPath) {
         this.recordPath = recordPath;
     }

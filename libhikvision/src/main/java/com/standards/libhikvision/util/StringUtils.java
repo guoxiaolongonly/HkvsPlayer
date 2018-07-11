@@ -12,7 +12,7 @@ public class StringUtils {
     private static SimpleDateFormat ymdhmsformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static SimpleDateFormat ymdformat = new SimpleDateFormat("yyyy-MM-dd");
     public static String stringForTime(int timeMs) {
-        int totalSeconds = timeMs / 1000;
+        int totalSeconds = timeMs ;
 
         int seconds = totalSeconds % 60;
         int minutes = (totalSeconds / 60) % 60;

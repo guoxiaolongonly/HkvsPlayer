@@ -2,8 +2,6 @@ package com.standards.libhikvision.ui;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,6 +15,7 @@ import com.hikvision.sdk.consts.SDKConstant;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.BaseActivity;
+import com.standards.libhikvision.activity.widget.ImagePreViewDialog;
 import com.standards.libhikvision.activity.widget.player.LivePlayer;
 import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack;
 import com.standards.libhikvision.activity.widget.player.listener.OnVideoControlListener;
@@ -203,14 +202,9 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
             intent.putExtra("filePath", recordPath);
             startActivity(intent);
         });
-
         browsePhotoAdapter.setOnItemClickListener(v -> {
-            File file = (File) v.getTag();
-            Uri uri = FileProvider.getUriForFile(this, "com.standards.libhikvision.fileprovider", file);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri, "image/*");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(intent);
+            ImagePreViewDialog imagePreViewDialog = new ImagePreViewDialog(this,  browsePhotoAdapter.getUrls(), (Integer) v.getTag());
+            imagePreViewDialog.show();
         });
         ivBack.setOnClickListener(v -> finish());
     }
@@ -231,12 +225,12 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
     protected void onStart() {
         super.onStart();
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        player.onStop();
-    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        player.onStop();
+//    }
 
     @Override
     protected void onDestroy() {

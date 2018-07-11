@@ -1,8 +1,6 @@
 package com.standards.libhikvision.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-//import com.bumptech.glide.Glide;
 import com.bumptech.glide.Glide;
 import com.standards.libhikvision.R;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+//import com.bumptech.glide.Glide;
 
 /**
  * @author linciping
@@ -30,7 +30,7 @@ public class BrowsePhotoAdapter extends RecyclerView.Adapter<BrowsePhotoAdapter.
     private List<File> mFiles;
     private View.OnClickListener mOnItemClickListener;
     private int mLimit = -1;
-
+    private List<String> url;
 
     public BrowsePhotoAdapter(Context context, List<File> files) {
         this.mContext = context;
@@ -49,6 +49,22 @@ public class BrowsePhotoAdapter extends RecyclerView.Adapter<BrowsePhotoAdapter.
         notifyDataSetChanged();
     }
 
+    public List<File> getFiles() {
+        return mFiles;
+    }
+
+    public List<String> getUrls() {
+        if(url==null)
+        {
+            url=new ArrayList<>();
+            for(File file:mFiles)
+            {
+                url.add(file.getAbsolutePath());
+            }
+        }
+
+        return url;
+    }
     @NonNull
     @Override
     public BrowsePhotoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -94,7 +110,7 @@ public class BrowsePhotoAdapter extends RecyclerView.Adapter<BrowsePhotoAdapter.
             tvTime.setText(file.getName().substring(0, file.getName().length() - 4));
             itemView.setOnClickListener(v -> {
                 if (mOnItemClickListener != null) {
-                    v.setTag(file);
+                    v.setTag(position);
                     mOnItemClickListener.onClick(v);
                 }
             });

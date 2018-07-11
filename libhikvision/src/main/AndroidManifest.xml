@@ -26,7 +26,10 @@
             android:name="com.standards.libhikvision.ui.BackPlayActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard|screenLayout"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.H246MediaDecoderActivity" />
+        <activity android:name=".ui.LocalVideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|keyboard|screenLayout"
+            android:screenOrientation="landscape"
+            />
 
 
         <provider

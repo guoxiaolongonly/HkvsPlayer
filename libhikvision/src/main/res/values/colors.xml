@@ -9,7 +9,7 @@
     <color name="black">#333</color>
 
     <color name="black_overlay">#66000000</color>
-
+    <color name="dialog_bg">#a6000000</color>
     <color name="color_gray">#f2f2f2</color>
     <color name="colorMainText">#333333</color>
     <color name="colorMainBlue">#0070fa</color>
