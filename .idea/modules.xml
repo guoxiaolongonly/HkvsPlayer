@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/HkvsDemo.iml" filepath="$PROJECT_DIR$/HkvsDemo.iml" />
+      <module fileurl="file://D:\work_xl\workspace\HkvsPlayer\HkvsDemo.iml" filepath="D:\work_xl\workspace\HkvsPlayer\HkvsDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HkvsPlayer.iml" filepath="$PROJECT_DIR$/HkvsPlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\work_xl\workspace\HkvsPlayer\app\app.iml" filepath="D:\work_xl\workspace\HkvsPlayer\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libhikvision/libhikvision.iml" filepath="$PROJECT_DIR$/libhikvision/libhikvision.iml" />
+      <module fileurl="file://D:\work_xl\workspace\HkvsPlayer\libhikvision\libhikvision.iml" filepath="D:\work_xl\workspace\HkvsPlayer\libhikvision\libhikvision.iml" />
     </modules>
   </component>
 </project>
