@@ -2,17 +2,18 @@
 
 # 海康威视视频监控播放器
 
-# 界面效果如下
+## 界面效果如下
 
 ![直播](https://github.com/guoxiaolongonly/HkvsPlayer/blob/master/screen/live.gif?raw=true)
 ![回放](https://github.com/guoxiaolongonly/HkvsPlayer/blob/master/screen/backPlay.gif?raw=true)
     
-# 使用方式
+## 使用方式
 
-## 1. 需要设置界面功能点击回调，可以设置播放状态回调
-​```
+### 1. 需要设置界面功能点击回调，可以设置播放状态回调
 
-  player.setOnVideoControlListener(new OnVideoControlListener() {
+```
+
+ 	 player.setOnVideoControlListener(new OnVideoControlListener() {
             @Override
             public void onStartPlayClick() {
                 player.startPlay();
@@ -77,42 +78,49 @@
 
             }
         });
-		
-​```
 
-## 2.Activity需要在Manifest中添加横竖屏切换配置
+```
 
-​```
+### 2.Activity需要在Manifest中添加横竖屏切换配置
+
+
+```
 
  <activity
             android:name="com.standards.libhikvision.ui.PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|keyboard|screenLayout"
             android:screenOrientation="portrait" />
-			
-​```
 
-## 3.基础实现带截图，录像等功能，可以根据需求进行扩展，详情请看
+```			
 
-​```
 
-com.standards.libhikvision.activity.widget.player.video.BaseMedia;
+### 3.基础实现带截图，录像等功能，可以根据需求进行扩展，详情请看
+
 播放器基类
 
-com.standards.libhikvision.activity.widget.player.view.LuckyVideoControllerView;
+	com.standards.libhikvision.activity.widget.player.video.BaseMedia;
+
 控制类
 
-​```
+	com.standards.libhikvision.activity.widget.player.view.LuckyVideoControllerView;
 
-#附
+
+
+
+## 附
 
 有其他问题欢迎交流。
 
-# License
+## License
 
 	Apache2.0
 
-​```
 
-	Copyright 2018 Xiaolong 
+```
 
-​```
+Copyright 2018 Xiaolong 
+
+```
+
+
+
