@@ -1,7 +1,6 @@
 package com.standards.libhikvision.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.standards.libhikvision.activity.widget.dialog.ProgressDialog;
@@ -9,10 +8,10 @@ import com.standards.libhikvision.view.IBaseView;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 /**
+ *  <描述功能>
  * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date: 2018/6/20 15:25
+ * @since: 2018/6/20 15:25
  */
 
 public abstract class BaseActivity extends AutoLayoutActivity implements IBaseView {

@@ -15,11 +15,12 @@ import com.standards.libhikvision.adapter.PreviewImageAdapter;
 import java.util.List;
 
 /**
- * @author xiaolong
+ *  <描述功能>
+ * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date 2016/7/18-16:57
+ * @since: 2018/6/20 15:25
  */
+
 public class ImagePreViewDialog extends AlertDialog {
     private ViewPager viewpager;
     private List<String> mUris;

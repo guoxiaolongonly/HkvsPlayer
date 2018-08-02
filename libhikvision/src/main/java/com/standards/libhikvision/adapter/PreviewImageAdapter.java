@@ -17,10 +17,10 @@ import uk.co.senab.photoview.PhotoView;
 
 
 /**
- * @author xiaolong
+ *  <描述功能>
+ * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date 2016/7/18-16:57
+ * @since: 2018/6/20 15:25
  */
 public class PreviewImageAdapter extends PagerAdapter {
     private List<View> views;

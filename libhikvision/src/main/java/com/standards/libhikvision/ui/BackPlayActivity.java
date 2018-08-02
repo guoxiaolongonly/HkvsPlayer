@@ -31,8 +31,6 @@ import java.util.TimerTask;
 /**
  * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date: 2018/6/15 11:37
  */
 
 public class BackPlayActivity extends BaseActivity {

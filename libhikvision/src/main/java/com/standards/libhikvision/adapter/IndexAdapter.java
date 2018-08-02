@@ -14,15 +14,15 @@ import com.bumptech.glide.Glide;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.util.Constant;
-import com.standards.libhikvision.util.FileUtil;
 
 import java.io.File;
 import java.util.List;
 
 /**
+ * <描述功能>
  * @author linciping
- * @time 2018/5/28
- * @note 列表信息 目前其实就一个列表 所以暂时~~
+ * @version v1.0
+ * @since: 2018/6/11
  */
 public class IndexAdapter extends RecyclerView.Adapter<IndexAdapter.IndexViewHolder> {
 

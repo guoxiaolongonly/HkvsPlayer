@@ -16,12 +16,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.bumptech.glide.Glide;
 
 /**
+ * <预览图>
  * @author linciping
- * @time 2018/5/29
- * @note 预览图
+ * @version v1.0
+ * @since: 2018/6/11
  */
 public class BrowsePhotoAdapter extends RecyclerView.Adapter<BrowsePhotoAdapter.BrowsePhotoViewHolder> {
 

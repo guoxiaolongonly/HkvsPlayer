@@ -1,7 +1,5 @@
 package com.standards.libhikvision.presenter;
 
-import android.app.Activity;
-
 import com.standards.libhikvision.util.FileUtil;
 import com.standards.libhikvision.view.IFileVisitorView;
 
@@ -9,10 +7,10 @@ import java.io.File;
 
 
 /**
+ *  <描述功能>
  * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date: 2018/6/29 15:30
+ * @since: 2018/6/20 15:25
  */
 
 public class FileVisitorPresenter {

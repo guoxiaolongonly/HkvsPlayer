@@ -5,8 +5,6 @@ import com.hikvision.sdk.consts.SDKConstant;
 /**
  * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date: 2018/6/28 10:05
  */
 
 public class HintUtil {

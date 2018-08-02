@@ -15,10 +15,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author xiaolong
+ *  <描述功能>
+ * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date 2016/10/17-9:53
+ * @since: 2018/6/20 15:25
  */
 public class DatePickerDialog extends BaseAnimDialog implements View.OnClickListener, WheelPicker.OnItemSelectedListener {
     public static final int TAG_SHOW_DATE_ONLY = 1;

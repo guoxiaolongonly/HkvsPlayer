@@ -27,10 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <描述功能>
  * @author linciping
- * @time 2018/5/28
- * @note
+ * @version v1.0
+ * @since: 2018/6/28
  */
+
 public class IndexActivity extends BaseActivity implements IMonitorIndexView {
 
     private RecyclerView rvIndex;

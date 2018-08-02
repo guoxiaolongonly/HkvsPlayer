@@ -17,9 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <浏览截图>
  * @author linciping
- * @time 2018/5/29
- * @note 浏览截图
+ * @version v1.0
+ * @since: 2018/6/11
  */
 public class BrowsePhotoActivity extends BaseActivity implements IFileVisitorView {
 

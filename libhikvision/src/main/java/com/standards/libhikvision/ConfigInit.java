@@ -10,8 +10,6 @@ import com.hikvision.sdk.VMSNetSDK;
 /**
  * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <描述功能>
- * @date: 2018/7/3 16:17
  */
 
 public class ConfigInit {

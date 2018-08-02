@@ -12,12 +12,10 @@ import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack
 import java.util.Calendar;
 
 /**
+ *  <描述功能>
  * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @function <这个类是播放器的基类，主要是用于抽取播放器经常使用的几个方法，播放，暂停等，
- * 有部分方法是直播专用的实现，部分则是回放需要做的实现，具体可以看注释。
- * 虽然有很多接口暂时没用到，先开放了。防止以后播放器功能需要持续集成>
- * @date: 2018/6/25 10:35
+ * @since: 2018/6/20 15:25
  */
 
 public abstract class BaseMedia {
