@@ -2,6 +2,7 @@ package com.standards.libhikvision.ui;
 
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.BaseActivity;
+import com.standards.libhikvision.activity.widget.ImagePreViewDialog;
 import com.standards.libhikvision.activity.widget.player.LocalPlayer;
 import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack;
 import com.standards.libhikvision.activity.widget.player.listener.OnVideoControlListener;
@@ -9,13 +10,15 @@ import com.standards.libhikvision.util.FileUtil;
 import com.standards.libhikvision.util.HintUtil;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocalVideoActivity extends BaseActivity {
     public static final String KEY_FILE = "filePath";
     // 播放器
     private LocalPlayer player;
     private File mFile;
-
+    private List<String> previewFileUri=new ArrayList<>();
     @Override
     protected int getLayoutId() {
         return R.layout.activity_local;
@@ -40,8 +43,7 @@ public class LocalVideoActivity extends BaseActivity {
 
             @Override
             public void onScreenShotClick() {
-                int opt = player.screenShot();
-                showHint(HintUtil.getBackScreenShotHint(opt));
+                screenShot();
             }
 
             @Override
@@ -62,6 +64,12 @@ public class LocalVideoActivity extends BaseActivity {
             public void onFluencyClick() {
 
             }
+
+            @Override
+            public void onPreViewClick(File preImage) {
+                previewFileUri.add(preImage.getAbsolutePath());
+                previewImage(previewFileUri,0);
+            }
         });
         player.setOnPlayCallBack(new OnPlayCallBack() {
             @Override
@@ -71,7 +79,9 @@ public class LocalVideoActivity extends BaseActivity {
 
             @Override
             public void onStatusCallback(int var1) {
-
+//                if (var1 == RtspClient.RTSPCLIENT_MSG_PLAYBACK_FINISH) {
+//                   finish();
+//                }
             }
 
             @Override
@@ -86,6 +96,17 @@ public class LocalVideoActivity extends BaseActivity {
         });
     }
 
+    private void previewImage(List<String> previewFileUri, int i) {
+        ImagePreViewDialog imagePreViewDialog =new ImagePreViewDialog(this,previewFileUri,i);
+        imagePreViewDialog.show();
+    }
+
+
+    public void screenShot()
+    {
+        int opt = player.screenShot();
+        showHint(HintUtil.getBackScreenShotHint(opt));
+    }
     @Override
     protected void initData() {
         mFile = (File) getIntent().getSerializableExtra(KEY_FILE);

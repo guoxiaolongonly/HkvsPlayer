@@ -192,7 +192,7 @@ public class LuckyVideoControllerView extends FrameLayout {
     }
 
     private void setListener() {
-        iv_pre_play.setOnClickListener(view -> {
+        rl_pre.setOnClickListener(view -> {
             if (onVideoControlListener != null) {
                 onVideoControlListener.onStartPlayClick();
             }
@@ -247,6 +247,11 @@ public class LuckyVideoControllerView extends FrameLayout {
             @Override
             public void onFluencyClick() {
             }
+
+            @Override
+            public void onPreViewClick(File preImage) {
+
+            }
         });
 
         ivScreenShot.setOnClickListener(v -> {
@@ -264,6 +269,12 @@ public class LuckyVideoControllerView extends FrameLayout {
             llStreamType.setVisibility(GONE);
             onVideoControlListener.onFluencyClick();
         });
+        ivPreImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onVideoControlListener.onPreViewClick(preImage);
+            }
+        });
     }
 
     public void setPlayer(BaseMedia mediaPlayer, OnPlayCallBack onPlayCallBack) {
@@ -271,12 +282,16 @@ public class LuckyVideoControllerView extends FrameLayout {
         mMediaPlayer.setOnPlayCallBack(new OnPlayCallBack() {
             @Override
             public void onFailure() {
-                ((Activity) getContext()).runOnUiThread(() -> onPlayCallBack.onFailure());
+                ((Activity) getContext()).runOnUiThread(() -> {
+                    onPlayCallBack.onFailure();
+                    hide();
+                });
             }
 
             @Override
             public void onStatusCallback(int var1) {
                 ((Activity) getContext()).runOnUiThread(() -> onPlayCallBack.onStatusCallback(var1));
+                hide();
             }
 
             @Override
@@ -432,16 +447,16 @@ public class LuckyVideoControllerView extends FrameLayout {
         long current = mMediaPlayer.getCurrentPlayTime();
         long start = mMediaPlayer.getStartTime();
         long end = mMediaPlayer.getTotalTime();
-        if (current == end) {
-            mMediaPlayer.stop();
+        if (current >= end) {
+            mMediaPlayer.pause();
         }
         if (mPlayerSeekBar != null) {
             long pos = (current - start) * 1000 / (end - start);
             mPlayerSeekBar.setProgress((int) pos);
         }
+        updatePausePlay();
         mVideoProgress.setText(getRealTime(current));
         mVideoDuration.setText(getRealTime(end));
-
 
         return current;
     }
@@ -565,6 +580,7 @@ public class LuckyVideoControllerView extends FrameLayout {
         @Override
         public void onStopTrackingTouch(SeekBar bar) {
             mMediaPlayer.setCurrentTime(mDraggingProgress);
+            mMediaPlayer.resume();
             mDragging = false;
             mDraggingProgress = 0;
             hide();

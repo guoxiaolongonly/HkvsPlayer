@@ -3,6 +3,7 @@ package com.standards.libhikvision.activity.widget.player.video;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.hik.mcrsdk.rtsp.RtspClient;
 import com.hikvision.sdk.VMSNetSDK;
 import com.hikvision.sdk.net.bean.CustomRect;
 import com.hikvision.sdk.net.business.OnVMSNetSDKBusiness;
@@ -50,6 +51,10 @@ public class LocalMedia extends BaseMedia {
                     if (mOnPlayCallBack != null) {
                         mOnPlayCallBack.onStatusCallback(status);
                     }
+
+                    if (status == RtspClient.RTSPCLIENT_MSG_PLAYBACK_FINISH) {
+                        stop();
+                    }
                 }
             });
         }).start();
@@ -69,7 +74,14 @@ public class LocalMedia extends BaseMedia {
 
     @Override
     public void resume() {
-        VMSNetSDK.getInstance().resumeLocalVideo();
+        if (getCurrentPlayTime() == getTotalTime()) {
+            setCurrentTime(1);
+        }
+        if (!VMSNetSDK.getInstance().resumeLocalVideo()) {
+            stop();
+            play();
+        }
+
         setPlayStatus(PLAY_STATUS_PLAYING);
     }
 
@@ -116,7 +128,9 @@ public class LocalMedia extends BaseMedia {
 
     @Override
     public boolean setCurrentTime(long currentTime) {
-        return VMSNetSDK.getInstance().setLocalCurrentFrame((double) currentTime/preTotal);
+        pause();
+        double realRate = (double) currentTime / preTotal;
+        return VMSNetSDK.getInstance().setLocalCurrentFrame(realRate);
     }
 
     @Override

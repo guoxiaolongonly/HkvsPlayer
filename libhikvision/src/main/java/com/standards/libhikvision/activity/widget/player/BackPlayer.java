@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -23,10 +24,10 @@ import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack
 import com.standards.libhikvision.activity.widget.player.listener.OnVideoControlListener;
 import com.standards.libhikvision.activity.widget.player.video.BaseMedia;
 import com.standards.libhikvision.activity.widget.player.video.PlayBackMedia;
+import com.standards.libhikvision.activity.widget.player.view.LuckyBehaviorView;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoControllerView;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoProgressOverlay;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoSystemOverlay;
-import com.standards.libhikvision.activity.widget.player.view.LuckyBehaviorView;
 import com.standards.libhikvision.util.DisplayUtils;
 import com.standards.libhikvision.util.NetworkUtils;
 import com.standards.libhikvision.util.StringUtils;
@@ -122,6 +123,7 @@ public class BackPlayer extends LuckyBehaviorView {
         OnPlayCallBack onPlayCallBack = new OnPlayCallBack() {
             @Override
             public void onFailure() {
+                hideLoading();
                 if (mOnPlayCallBack != null) {
                     mOnPlayCallBack.onFailure();
                 }
@@ -129,6 +131,7 @@ public class BackPlayer extends LuckyBehaviorView {
 
             @Override
             public void onStatusCallback(int i) {
+                hideLoading();
                 //录像片段回放结束
                 if (i == RtspClient.RTSPCLIENT_MSG_PLAYBACK_FINISH) {
                     mediaController.release();
@@ -141,10 +144,12 @@ public class BackPlayer extends LuckyBehaviorView {
 
             @Override
             public void onSuccess(Object o) {
-                hideLoading();
-                if (mOnPlayCallBack != null) {
-                    mOnPlayCallBack.onSuccess(o);
-                }
+                new Handler().postDelayed(() -> {
+                    hideLoading();
+                    if (mOnPlayCallBack != null) {
+                        mOnPlayCallBack.onSuccess(o);
+                    }
+                }, 3000);
             }
 
             @Override
@@ -159,7 +164,6 @@ public class BackPlayer extends LuckyBehaviorView {
         mSurfaceCallBack = new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
-
                 mMediaPlayer.resume();
                 mMediaPlayer.setVideoWindowOpt(holder);
             }

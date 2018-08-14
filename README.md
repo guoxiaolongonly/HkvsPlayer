@@ -1,6 +1,6 @@
 [![PersonBlog](https://img.shields.io/badge/PersonBlog-@xiaolongonly-blue.svg?style=flat)](http://xiaolongonly.cn/)
 
-# 海康威视视频监控播放器
+# 海康威视视频监控播放器  8700
 
 ## 界面效果如下
 
@@ -109,7 +109,7 @@
 
 ## 附
 
-有其他问题欢迎交流。
+有其他问题欢迎交流。此项目针对8700，如果是其他sdk，可以使用本框架，根据相关的接口实现相应的media，来实现功能。
 
 ## License
 

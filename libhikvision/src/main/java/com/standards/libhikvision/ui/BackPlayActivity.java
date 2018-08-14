@@ -12,6 +12,7 @@ import com.hikvision.sdk.consts.SDKConstant;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.BaseActivity;
+import com.standards.libhikvision.activity.widget.ImagePreViewDialog;
 import com.standards.libhikvision.activity.widget.dialog.DatePickerDialog;
 import com.standards.libhikvision.activity.widget.player.BackPlayer;
 import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack;
@@ -24,13 +25,17 @@ import com.standards.libhikvision.util.HintUtil;
 import com.standards.libhikvision.util.StringUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
  * @author xiaolong 719243738@qq.com
  * @version v1.0
+ * @function <描述功能>
+ * @date: 2018/6/15 11:37
  */
 
 public class BackPlayActivity extends BaseActivity {
@@ -58,6 +63,7 @@ public class BackPlayActivity extends BaseActivity {
      */
     private TimerTask mUpdateTimerTask = null;
 
+    private List<String> previewFileUri = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -83,11 +89,11 @@ public class BackPlayActivity extends BaseActivity {
         subResourceNodeBean = (SubResourceNodeBean) getIntent().getSerializableExtra(Constant.IntentKey.CAMERA);
         tvTitle.setText(subResourceNodeBean.getName() + "回放");
         player.initPlayer(subResourceNodeBean, subResourceNodeBean.getName() + "回放", 1);
-
-        File recordPath = FileUtil.getVideoDirPath(subResourceNodeBean.getName() + "/backVideo");
+        //video /backVideo
+        File recordPath = FileUtil.getVideoDirPath(subResourceNodeBean.getName() + "/video");
         player.setRecordPath(recordPath.getPath());
         File screenShotPath = FileUtil.getVideoDirPath(
-                subResourceNodeBean.getName() + "/backScreenShot");
+                subResourceNodeBean.getName() + "/screenShot");
         player.setScreenShotPath(screenShotPath.getPath());
     }
 
@@ -97,8 +103,7 @@ public class BackPlayActivity extends BaseActivity {
             recordOpt();
         });
         llScreenShot.setOnClickListener(v -> {
-            int opt = player.screenShot();
-            showHint(HintUtil.getBackScreenShotHint(opt));
+            screenShot();
         });
         player.setOnVideoControlListener(new OnVideoControlListener() {
             @Override
@@ -118,8 +123,7 @@ public class BackPlayActivity extends BaseActivity {
 
             @Override
             public void onScreenShotClick() {
-                int opt = player.screenShot();
-                showHint(HintUtil.getBackScreenShotHint(opt));
+                screenShot();
             }
 
             @Override
@@ -140,6 +144,12 @@ public class BackPlayActivity extends BaseActivity {
             @Override
             public void onFluencyClick() {
 
+            }
+
+            @Override
+            public void onPreViewClick(File preImage) {
+                previewFileUri.add(preImage.getAbsolutePath());
+                previewImage(previewFileUri, 0);
             }
         });
         player.setOnPlayCallBack(new OnPlayCallBack() {
@@ -175,10 +185,14 @@ public class BackPlayActivity extends BaseActivity {
 
         tvTime.setOnClickListener(v -> {
             datePickerDialog.show();
-
         });
         ivBack.setOnClickListener(v -> finish());
         initTimeView();
+    }
+
+    private void previewImage(List<String> previewFileUri, int i) {
+        ImagePreViewDialog imagePreViewDialog = new ImagePreViewDialog(this, previewFileUri, i);
+        imagePreViewDialog.show();
     }
 
     private void preClick() {
@@ -309,6 +323,12 @@ public class BackPlayActivity extends BaseActivity {
         }
     }
 
+
+    public void screenShot() {
+        int opt = player.screenShot();
+        showHint(HintUtil.getBackScreenShotHint(opt));
+    }
+
     public void recordOpt() {
         if (llRecord.isSelected()) {
             llRecord.setSelected(false);
@@ -316,6 +336,7 @@ public class BackPlayActivity extends BaseActivity {
             showHint("停止录像");
             tvRecord.setText("录像");
             sctvTimeLine.setVisibility(View.VISIBLE);
+            findViewById(R.id.llTimeSelectView).setVisibility(View.VISIBLE);
         } else {
             int recordOpt = player.startRecord();
             showHint(HintUtil.getBackPlayRecordHint(recordOpt));
@@ -323,6 +344,7 @@ public class BackPlayActivity extends BaseActivity {
                 llRecord.setSelected(true);
                 tvRecord.setText("录像中");
                 sctvTimeLine.setVisibility(View.GONE);
+                findViewById(R.id.llTimeSelectView).setVisibility(View.GONE);
             }
         }
     }

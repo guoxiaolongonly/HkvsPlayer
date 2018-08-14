@@ -18,10 +18,12 @@ import com.hikvision.sdk.utils.SDKUtil;
 import java.util.Calendar;
 
 /**
- *  <描述功能>
  * @author xiaolong 719243738@qq.com
  * @version v1.0
- * @since: 2018/6/20 15:25
+ * @function 思考了一下  在播放器中其实并没有多大需求要加入OnVMSNetSDKBusiness
+ * 部分特殊情况可能会有这些需求，比如在开始播放的时候我们可能需要通过回调来知道这次的开启是成功还是失败的
+ * 从而确定我们的UI加载状态这边先给几个地方加上回调如果后续有这方面需求，可以继承此类，重写相应方法插入回调。
+ * @date: 2018/6/25 11:10
  */
 
 public class PlayBackMedia extends BaseMedia {
@@ -99,10 +101,13 @@ public class PlayBackMedia extends BaseMedia {
         preTime = currentTime;
         this.playStartTime = playStartTime;
         this.playEndTime = playEndTime;
+        stop();
+        mOnPlayCallBack.onStart();
         VMSNetSDK.getInstance().queryRecordSegment(mWindow, mCameraInfo, playStartTime, playEndTime, storageType, guid, new OnVMSNetSDKBusiness() {
             @Override
             public void onFailure() {
                 showHint("查找录像片段失败！");
+                mOnPlayCallBack.onFailure();
             }
 
             @Override

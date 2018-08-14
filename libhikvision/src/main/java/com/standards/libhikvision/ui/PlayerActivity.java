@@ -55,7 +55,7 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
     private File recordPath;
     private ImageView ivBack;
     private TextView tvTitle;
-
+    private List<String> previewFileUri=new ArrayList<>();
     @Override
     protected int getLayoutId() {
         return R.layout.activity_player;
@@ -93,8 +93,7 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
 
             @Override
             public void onScreenShotClick() {
-                int opt = player.screenShot();
-                showHint(HintUtil.getLiveScreenShotHint(opt));
+                screenShot();
             }
 
             @Override
@@ -109,20 +108,25 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
 
             @Override
             public void onHiQualityClick() {
-                player.setStreamType(0);
+                player.setStreamType(SDKConstant.LiveSDKConstant.MAIN_HIGH_STREAM);
                 player.startPlay();
             }
 
             @Override
             public void onFluencyClick() {
-                player.setStreamType(1);
+                player.setStreamType(SDKConstant.LiveSDKConstant.SUB_STANDARD_STREAM);
                 player.startPlay();
+            }
+
+            @Override
+            public void onPreViewClick(File preImage) {
+                previewFileUri.add(preImage.getAbsolutePath());
+                previewImage(previewFileUri,0);
             }
         });
         player.setOnPlayCallBack(new OnPlayCallBack() {
             @Override
             public void onFailure() {
-                //截取第一帧保存
             }
 
             @Override
@@ -185,14 +189,9 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
             recordOpt();
         });
         llScreenShot.setOnClickListener(v -> {
-            int opt = player.screenShot();
-            showHint(HintUtil.getLiveScreenShotHint(opt));
-            if (opt == SDKConstant.LiveSDKConstant.CAPTURE_SUCCESS) {
-                fileVisitorPresenter.getScreeShotList();
-            }
+            screenShot();
         });
         llScreenShotHistory.setOnClickListener(v -> {
-            //Launch the ScreenShotHistoryViews
             Intent intent = new Intent(this, BrowsePhotoActivity.class);
             intent.putExtra("filePath", screenShotPath);
             startActivity(intent);
@@ -203,10 +202,24 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
             startActivity(intent);
         });
         browsePhotoAdapter.setOnItemClickListener(v -> {
-            ImagePreViewDialog imagePreViewDialog = new ImagePreViewDialog(this,  browsePhotoAdapter.getUrls(), (Integer) v.getTag());
-            imagePreViewDialog.show();
+            int position =(Integer) v.getTag();
+            previewImage( FileToURI(browsePhotoAdapter.getFiles()),position);
         });
         ivBack.setOnClickListener(v -> finish());
+    }
+
+    private List<String> FileToURI(List<File> files) {
+        List<String> uriList = new ArrayList<>();
+        for(File file:files)
+        {
+            uriList.add(file.getAbsolutePath());
+        }
+        return uriList;
+    }
+
+    private void previewImage(List<String> files,int position) {
+        ImagePreViewDialog imagePreViewDialog =new ImagePreViewDialog(this,files,position);
+        imagePreViewDialog.show();
     }
 
     @Override
@@ -225,12 +238,13 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
     protected void onStart() {
         super.onStart();
     }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        player.onStop();
-//    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        player.onStop();
+    }
 
     @Override
     protected void onDestroy() {
@@ -250,6 +264,15 @@ public class PlayerActivity extends BaseActivity implements IFileVisitorView {
         }
     }
 
+
+    public void screenShot()
+    {
+        int opt = player.screenShot();
+        showHint(HintUtil.getLiveScreenShotHint(opt));
+        if (opt == SDKConstant.LiveSDKConstant.CAPTURE_SUCCESS) {
+            fileVisitorPresenter.getScreeShotList();
+        }
+    }
 
     public void recordOpt() {
         if (llRecord.isSelected()) {

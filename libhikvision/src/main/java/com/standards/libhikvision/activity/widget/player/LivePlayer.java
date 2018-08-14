@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -17,21 +18,19 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.hikvision.sdk.consts.SDKConstant;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
-import com.hikvision.sdk.net.business.OnVMSNetSDKBusiness;
 import com.standards.libhikvision.R;
 import com.standards.libhikvision.activity.widget.player.listener.OnPlayCallBack;
 import com.standards.libhikvision.activity.widget.player.listener.OnVideoControlListener;
 import com.standards.libhikvision.activity.widget.player.video.BaseMedia;
 import com.standards.libhikvision.activity.widget.player.video.LiveMedia;
+import com.standards.libhikvision.activity.widget.player.view.LuckyBehaviorView;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoControllerView;
 import com.standards.libhikvision.activity.widget.player.view.LuckyVideoSystemOverlay;
-import com.standards.libhikvision.activity.widget.player.view.LuckyBehaviorView;
 import com.standards.libhikvision.util.DisplayUtils;
 import com.standards.libhikvision.util.NetworkUtils;
 import com.standards.libhikvision.util.StringUtils;
-
-import org.MediaPlayer.PlayM4.PlayerCallBack;
 
 
 /**
@@ -131,6 +130,7 @@ public class LivePlayer extends LuckyBehaviorView {
             public void onFailure() {
                 showHint("启动取流失败");
                 if(mOnPlayCallBack!=null) {
+                    hideLoading();
                     mOnPlayCallBack.onFailure();
                 }
             }
@@ -138,6 +138,7 @@ public class LivePlayer extends LuckyBehaviorView {
             @Override
             public void onStatusCallback(int i) {
                 showHint("播放失败" + i);
+                hideLoading();
                 if(mOnPlayCallBack!=null) {
                     mOnPlayCallBack.onStatusCallback(i);
                 }
@@ -146,11 +147,12 @@ public class LivePlayer extends LuckyBehaviorView {
 
             @Override
             public void onSuccess(Object o) {
-                hideLoading();
-                if(mOnPlayCallBack!=null) {
-                    mOnPlayCallBack.onSuccess(o);
-                }
-
+                new Handler().postDelayed(() -> {
+                    hideLoading();
+                    if (mOnPlayCallBack != null) {
+                        mOnPlayCallBack.onSuccess(o);
+                    }
+                },3000);
             }
 
             @Override
@@ -169,7 +171,7 @@ public class LivePlayer extends LuckyBehaviorView {
         if (mMediaPlayer.getStreamType() == streamType) {
             return;
         }
-        mediaController.changeStreamType(streamType == 0 ? "高清" : "流畅");
+        mediaController.changeStreamType(streamType == SDKConstant.LiveSDKConstant.MAIN_HIGH_STREAM ? "高清" : "流畅");
         mMediaPlayer.setStreamType(streamType);
     }
 

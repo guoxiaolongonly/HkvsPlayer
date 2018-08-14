@@ -7,9 +7,12 @@ import com.hikvision.sdk.net.bean.LoginData;
 import com.hikvision.sdk.net.bean.SubResourceNodeBean;
 import com.hikvision.sdk.net.bean.SubResourceParam;
 import com.hikvision.sdk.net.business.OnVMSNetSDKBusiness;
+import com.standards.libhikvision.bean.HkCameraInfo;
+import com.standards.libhikvision.bean.MonitorInfo;
 import com.standards.libhikvision.util.Constant;
 import com.standards.libhikvision.view.IMonitorIndexView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,5 +76,17 @@ public class MonitorIndexPresenter {
                 }
             }
         });
+    }
+    public void getSubResourceList(MonitorInfo monitorInfo) {
+
+        List<SubResourceNodeBean> list = new ArrayList<>();
+        for(HkCameraInfo hkCameraInfo :monitorInfo.getResourceNode().cameras)
+        {
+            SubResourceNodeBean subResourceNodeBean = new SubResourceNodeBean();
+            subResourceNodeBean.setName(hkCameraInfo.name);
+            subResourceNodeBean.setSysCode(hkCameraInfo.id);
+            list.add(subResourceNodeBean);
+        }
+        monitorIndexView.getAreaNodeDetailSuccess(list);
     }
 }

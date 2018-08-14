@@ -1,5 +1,7 @@
 package com.standards.libhikvision.activity.widget.player.listener;
 
+import java.io.File;
+
 /**
  * 视频控制监听
  */
@@ -36,4 +38,6 @@ public interface OnVideoControlListener {
     void onHiQualityClick();
 
     void onFluencyClick();
+
+    void onPreViewClick(File preImage);
 }

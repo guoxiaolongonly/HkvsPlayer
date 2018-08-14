@@ -28,6 +28,7 @@ import java.util.List;
 
 /**
  * <描述功能>
+ *
  * @author linciping
  * @version v1.0
  * @since: 2018/6/28
@@ -107,8 +108,10 @@ public class IndexActivity extends BaseActivity implements IMonitorIndexView {
 
     @Override
     public void loginSuccess(LoginData loginData) {
-        mMonitorIndexPresenter.getSubResourceList(mMonitorInfo.getResourceNode().node_type, mMonitorInfo.getResourceNode().id);
+//        mMonitorIndexPresenter.getSubResourceList(mMonitorInfo.getResourceNode().node_type, mMonitorInfo.getResourceNode().id);
+        mMonitorIndexPresenter.getSubResourceList(mMonitorInfo);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
